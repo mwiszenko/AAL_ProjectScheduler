@@ -12,7 +12,6 @@ import static com.company.utils.FileHandler.readTasksFromCsv;
 import static com.company.utils.FileHandler.writeTasksToCsv;
 import static com.company.utils.InstanceGenerator.generateProblemInstance;
 import static com.company.utils.OptionBuilder.*;
-import static com.company.utils.OptionBuilder.DEFAULT_OUTPUT_FILE;
 
 public class Solver {
     private static Map<String, Task> tasks = new HashMap<>();

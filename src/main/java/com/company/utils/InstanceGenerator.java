@@ -4,8 +4,8 @@ import com.company.core.Task;
 
 import java.util.*;
 
+import static com.company.utils.FileHandler.TASK_DELIMITER;
 import static java.util.concurrent.ThreadLocalRandom.current;
-import static com.company.utils.FileHandler.*;
 
 public class InstanceGenerator {
     public static final Integer MIN_TIME = 1;

@@ -7,7 +7,7 @@ public class OptionBuilder {
     public static final String DEFAULT_INPUT_FILE = "input.csv";
     public static final String DEFAULT_OUTPUT_FILE = "output.csv";
     public static final Integer DEFAULT_TASKS = 1000;
-    public static final Integer DEFAULT_ITERATIONS = 90;
+    public static final Integer DEFAULT_ITERATIONS = 10;
     public static final Integer DEFAULT_STEP = 1000;
     public static final Integer DEFAULT_REPETITIONS = 1;
 
@@ -17,7 +17,9 @@ public class OptionBuilder {
                         .hasArg(true)
                         .required(true)
                         .longOpt("mode")
-                        .desc("mode:\n" + "1 - Solve problem from file\n" + "2 - Generate random instance of a problem")
+                        .desc("mode:\n" + "1 - solve problem from file\n"
+                                + "2 - solve generated problem\n"
+                                + "3 - benchmark\n")
                         .build())
                 .addOption(Option.builder("i")
                         .hasArg(true)
@@ -47,7 +49,7 @@ public class OptionBuilder {
                 .addOption(Option.builder("r")
                         .hasArg(true)
                         .longOpt("repetitions")
-                        .desc("number of repetitions, default: " + DEFAULT_TASKS)
+                        .desc("number of repetitions, default: " + DEFAULT_REPETITIONS)
                         .build())
                 .addOption(Option.builder("h")
                         .hasArg(false)

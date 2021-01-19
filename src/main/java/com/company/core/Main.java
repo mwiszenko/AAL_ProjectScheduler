@@ -2,8 +2,8 @@ package com.company.core;
 
 import org.apache.commons.cli.*;
 
-import static com.company.utils.OptionBuilder.*;
 import static com.company.core.Solver.*;
+import static com.company.utils.OptionBuilder.getOptions;
 
 public class Main {
     public static void main(String[] args) {
@@ -18,7 +18,7 @@ public class Main {
             cmd = parser.parse(options, args);
         } catch (ParseException e) {
             System.out.println(e.getMessage());
-            formatter.printHelp("java -jar <NAME> -m <arg> [-i <arg>] [-o <arg>] [-n <arg>]", options);
+            formatter.printHelp("java -jar <NAME> -m <arg> [-option <arg>]", options);
             System.exit(1);
         }
 
