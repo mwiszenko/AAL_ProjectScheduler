@@ -5,7 +5,6 @@ import sys, getopt
 
 MODE = "r"
 SPLITTER = " "
-HISTOGRAM_BINS = 20
 
 
 def read_from_file(filename):
