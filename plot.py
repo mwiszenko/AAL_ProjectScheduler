@@ -24,8 +24,6 @@ def read_from_file(filename):
 def plot_scatter(values, output_file):
     numbers = [i[0] for i in values]
     times = [i[1] for i in values]
-    a, b, c = np.polyfit(numbers, times, 2)
-    print(a, b, c)
     plt.xlabel("Size of the problem")
     plt.ylabel("Time [milliseconds]")
     plt.plot(numbers, times, 'o')
@@ -40,11 +38,11 @@ def main(argv):
     try:
         opts, args = getopt.getopt(argv,"hi:o:",["ifile=", "ofile="])
     except getopt.GetoptError:
-        print 'usage: plot.py -i <inputfile> -o <outputfile>'
+        print('usage: plot.py -i <inputfile> -o <outputfile>')
         sys.exit(2)
     for opt, arg in opts:
         if opt == '-h':
-            print 'usage: plot.py -i <inputfile> -o <outputfile>'
+            print('usage: plot.py -i <inputfile> -o <outputfile>')
             sys.exit()
         elif opt in ("-i", "--ifile"):
             input_file = arg
