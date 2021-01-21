@@ -31,6 +31,5 @@ public class Main {
                 System.exit(1);
             }
         }
-        System.out.println("Project completion time: " + calculateCompletionTime());
     }
 }

@@ -10,6 +10,7 @@ public class OptionBuilder {
     public static final Integer DEFAULT_ITERATIONS = 10;
     public static final Integer DEFAULT_STEP = 1000;
     public static final Integer DEFAULT_REPETITIONS = 1;
+    public static final Integer DEFAULT_OFFSET = 1;
 
     public static Options getOptions() {
         return new Options()
@@ -50,6 +51,16 @@ public class OptionBuilder {
                         .hasArg(true)
                         .longOpt("repetitions")
                         .desc("number of repetitions, default: " + DEFAULT_REPETITIONS)
+                        .build())
+                .addOption(Option.builder("k")
+                        .hasArg(true)
+                        .longOpt("taskToLengthen")
+                        .desc("name of task to be lengthened")
+                        .build())
+                .addOption(Option.builder("x")
+                        .hasArg(true)
+                        .longOpt("timeOffset")
+                        .desc("time offset for option -k, default: " + DEFAULT_OFFSET)
                         .build())
                 .addOption(Option.builder("h")
                         .hasArg(false)

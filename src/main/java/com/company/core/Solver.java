@@ -21,7 +21,7 @@ public class Solver {
         List<Task> taskList;
         String fileName = cmd.hasOption("i") ? cmd.getOptionValue("i") : DEFAULT_INPUT_FILE;
         taskList = readTasksFromCsv(fileName);
-        solveProblem(taskList);
+        setupProblem(taskList, cmd);
     }
 
     protected static void generateInstanceMode(CommandLine cmd) {
@@ -30,7 +30,7 @@ public class Solver {
         String fileName = cmd.hasOption("o") ? cmd.getOptionValue("o") : DEFAULT_OUTPUT_FILE;
         taskList = generateProblemInstance(numberOfTasks);
         writeTasksToCsv(taskList, fileName);
-        solveProblem(taskList);
+        setupProblem(taskList, cmd);
     }
 
     protected static void benchmarkMode(CommandLine cmd) {
@@ -41,15 +41,15 @@ public class Solver {
         int replays = cmd.hasOption("r") ? Integer.parseInt(cmd.getOptionValue("r")) : DEFAULT_REPETITIONS;
         String fileName = cmd.hasOption("o") ? cmd.getOptionValue("o") : DEFAULT_OUTPUT_FILE;
         try (FileWriter csvWriter = new FileWriter(fileName)) {
-            for(int i = 0; i < iterations; i++) {
+            for (int i = 0; i < iterations; i++) {
                 int numberOfTasks = initialNumberOfTasks + step * i;
                 csvWriter.append(String.valueOf(numberOfTasks));
-                for(int j = 0; j < replays; j++) {
+                for (int j = 0; j < replays; j++) {
                     taskList = generateProblemInstance(numberOfTasks);
                     tasks = new HashMap<>();
                     completionTime = new HashMap<>();
                     long startTime = System.nanoTime();
-                    solveProblem(taskList);
+                    setupProblem(taskList, cmd);
                     long endTime = System.nanoTime();
                     csvWriter.append(" ").append(String.valueOf((endTime - startTime) / 1000000));
                 }
@@ -61,11 +61,42 @@ public class Solver {
         }
     }
 
-    private static void solveProblem(List<Task> taskList) {
+    private static void setupProblem(List<Task> taskList, CommandLine cmd) {
         for (Task task : taskList) {
             tasks.put(task.name, task);
         }
+        int t1 = solveProblem();
+        if (cmd.hasOption("k")) {
+            String taskName = cmd.getOptionValue("k");
+            int offset = cmd.hasOption("x") ? Integer.parseInt(cmd.getOptionValue("x")) : DEFAULT_OFFSET;
 
+            tasks = new HashMap<>();
+            completionTime = new HashMap<>();
+            for (Task task : taskList) {
+                tasks.put(task.name, task);
+            }
+            Task taskToLengthen = tasks.get(taskName);
+            if(taskToLengthen == null) {
+                System.out.println("Project completion time: " + t1);
+                System.out.println("Wrong name of the task to be lengthened");
+                System.exit(1);
+            }
+            taskToLengthen.time += offset;
+            tasks.put(taskName, taskToLengthen);
+            int t2 = solveProblem();
+            int diff = t2 - t1;
+            if(!cmd.getOptionValue("m").equals("3")) {
+                System.out.println("Project completion time: " + t1);
+                System.out.println("Lengthening task " + taskName + " by " + offset + " changed completion time by " + diff);
+            }
+        } else {
+            if(!cmd.getOptionValue("m").equals("3")) {
+                System.out.println("Project completion time: " + t1);
+            }
+        }
+    }
+
+    private static int solveProblem() {
         for (Task task : tasks.values()) {
             if (completionTime.get(task.name) == null) {
                 try {
@@ -76,6 +107,7 @@ public class Solver {
                 }
             }
         }
+        return calculateCompletionTime();
     }
 
     private static void calculatePredecessors(Task parentTask) {
