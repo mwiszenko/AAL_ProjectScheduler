@@ -23,13 +23,15 @@ public class Main {
         }
 
         switch (cmd.getOptionValue("m")) {
-            case "1" -> singleRunMode(cmd);
-            case "2" -> generateInstanceMode(cmd);
-            case "3" -> benchmarkMode(cmd);
-            default -> {
+            case "1":
+                singleRunMode(cmd);
+            case "2":
+                generateInstanceMode(cmd);
+            case "3":
+                benchmarkMode(cmd);
+            default:
                 System.out.println("Wrong mode value");
                 System.exit(1);
-            }
         }
     }
 }
