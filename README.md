@@ -1,8 +1,8 @@
 # AAL_ProjectScheduler
 
-# Build
+## Build
 gradle jar
 
-# Run
-cd build/libs
+## Run
+cd build/libs  
 java -jar <snapshotname>
