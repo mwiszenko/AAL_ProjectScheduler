@@ -27,7 +27,7 @@ def plot_scatter(values, output_file):
     plt.xlabel("Size of the problem")
     plt.ylabel("Time [milliseconds]")
     plt.plot(numbers, times, 'o')
-    plt.plot(np.unique(numbers), np.poly1d(np.polyfit(numbers, times, 2))(np.unique(numbers)))
+    plt.plot(np.unique(numbers), np.poly1d(np.polyfit(numbers, times, 1))(np.unique(numbers)))
     plt.savefig(output_file)
     plt.show()
 

@@ -36,7 +36,8 @@ public class FileHandler {
             }
             csvWriter.flush();
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            System.out.println("Error opening file: " + ioe.getMessage());
+            System.exit(1);
         }
     }
 
@@ -55,7 +56,8 @@ public class FileHandler {
                 line = br.readLine();
             }
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            System.out.println("Error opening file: " + ioe.getMessage());
+            System.exit(1);
         }
         return tasks;
     }

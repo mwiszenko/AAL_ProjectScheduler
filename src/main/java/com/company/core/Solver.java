@@ -41,6 +41,7 @@ public class Solver {
         int replays = cmd.hasOption("r") ? Integer.parseInt(cmd.getOptionValue("r")) : DEFAULT_REPETITIONS;
         String fileName = cmd.hasOption("o") ? cmd.getOptionValue("o") : DEFAULT_OUTPUT_FILE;
         try (FileWriter csvWriter = new FileWriter(fileName)) {
+            System.out.println("Performing benchmark...");
             for (int i = 0; i < iterations; i++) {
                 int numberOfTasks = initialNumberOfTasks + step * i;
                 csvWriter.append(String.valueOf(numberOfTasks));
@@ -56,8 +57,10 @@ public class Solver {
                 csvWriter.append("\n");
             }
             csvWriter.flush();
+            System.out.println("Done");
         } catch (IOException ioe) {
-            ioe.printStackTrace();
+            System.out.println("Error opening file: " + ioe.getMessage());
+            System.exit(1);
         }
     }
 
@@ -119,7 +122,9 @@ public class Solver {
             } else {
                 // normal case
                 for (String taskName : parentTask.predecessors) {
-                    calculatePredecessors(tasks.get(taskName));
+                    if(completionTime.get(taskName) == null) {
+                        calculatePredecessors(tasks.get(taskName));
+                    }
                 }
                 completionTime.put(parentTask.name, calculateMaxTime(parentTask.predecessors) + parentTask.time);
             }
