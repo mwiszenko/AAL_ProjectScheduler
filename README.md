@@ -5,4 +5,4 @@ gradle jar
 
 ## Run
 cd build/libs  
-java -jar <snapshotname>
+java -jar [snapshotname] -h
