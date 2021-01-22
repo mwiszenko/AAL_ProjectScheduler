@@ -45,7 +45,7 @@ public class OptionBuilder {
                 .addOption(Option.builder("s")
                         .hasArg(true)
                         .longOpt("step")
-                        .desc("number of tasks, default: " + DEFAULT_STEP)
+                        .desc("iteration step, default: " + DEFAULT_STEP)
                         .build())
                 .addOption(Option.builder("r")
                         .hasArg(true)
